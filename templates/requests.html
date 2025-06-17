@@ -1,0 +1,155 @@
+{% extends "cloudhome.html" %}
+{% block content %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Healthcare Data Table with Pagination</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #bdaed4, #f8c855);            /* display: flex; */
+      margin: 0;
+      padding: 0;
+    }
+    .containr {
+      width: 80%;
+      margin: 40px auto;
+      overflow: hidden;
+      margin-bottom: 100px;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      color: #333;
+    }
+    /* New styling for the table container to enable horizontal scrolling */
+    .table-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-top: 20px;
+    }
+    table {
+      width: 100%;
+      margin: 20px 0;
+      border-collapse: collapse;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+    th {
+      background-color: #6391e7;
+      color: white;
+      font-weight: bold;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    tr:hover {
+      background-color: #d6eee7;
+    }
+
+    .pagination {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .pagination a {
+      color: #007bff;
+      padding: 8px 16px;
+      text-decoration: none;
+      border: 1px solid #ddd;
+      margin: 0 2px;
+      border-radius: 5px;
+    }
+
+    .pagination a.active {
+      background-color: #1becad;
+      color: white;
+      border: 1px solid #007bff;
+    }
+
+    .pagination a:hover {
+      background-color: #ddd;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="containr">
+    {% if messages %}
+        {% for message in messages %}
+       <center> <p class="alert alert-success">{{message}}</p></center>
+        {% endfor %}
+    {% endif %}
+    <h1>View Requests</h1>
+
+    <!-- Table with horizontal scrolling -->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>File ID</th>
+            <th>File Name</th>
+            <th>Requested By</th>
+            <th>Decrypted Data</th>
+            <!-- <th>Date</th> -->
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in data %}
+            <tr>
+              <td>{{ i.id }}</td>
+              <td>{{ i.filename }}</td>
+              <td>{{ i.requester }}</td>
+              <!-- <td>{{ i.encrypted_data }}</td> -->
+              <td>{{ i.encrypted_data }}</td>
+              <td>
+             
+                  <a href="{% url 'sendotp' i.id %}" style="display: inline-block; padding: 8px 16px; background-color: #25689e; color: white; text-decoration: none; border-radius: 5px; text-align: center; transition: background-color 0.3s;">
+                      Send OTP                    </a>
+               
+                
+                </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="5">No Requests found.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+        <!-- First page button -->
+        <a href="?page=1">First</a>
+        
+        <!-- Previous page button (ensure it doesn't go below 1) -->
+        <a href="?page={% if data.number > 1 %}{{ data.previous_page_number }}{% else %}1{% endif %}">Previous</a>
+    
+        <!-- Page numbers -->
+        {% for num in data.paginator.page_range %}
+            {% if data.number == num %}
+                <!-- Highlight the current page -->
+                <a href="?page={{ num }}" class="active">{{ num }}</a>
+            {% else %}
+                <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+    
+        <!-- Next page button (ensure it doesn't go beyond the last page) -->
+        <a href="?page={% if data.number < data.paginator.num_pages %}{{ data.next_page_number }}{% else %}{{ data.paginator.num_pages }}{% endif %}">Next</a>
+        
+        <!-- Last page button -->
+        <a href="?page={{ data.paginator.num_pages }}">Last</a>
+    </div>
+  </div>
+
+</body>
+
+{% endblock %}

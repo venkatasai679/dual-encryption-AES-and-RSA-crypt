@@ -1,0 +1,170 @@
+{% extends "userhome.html" %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(to right, #bdaed4, #f8c855);            /* display: flex; */
+ 
+            justify-content: center;
+            align-items: center;
+        }
+
+        .upload-container {
+            background-color: #ffffff;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+            margin: 50px auto;
+        }
+
+        .upload-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .upload-container h2 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 30px;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .file-upload-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 250px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .file-upload-btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .file-upload-btn:active {
+            background-color: #388e3c;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-name {
+            margin-top: 15px;
+            font-size: 18px;
+            color: #555;
+            word-wrap: break-word;
+            max-width: 100%;
+        }
+
+        .foter {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .foter a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .foter a:hover {
+            text-decoration: underline;
+        }
+
+        /* Smooth animation for the file name */
+        #file-name {
+            transition: color 0.3s ease, font-size 0.3s ease;
+        }
+
+        #file-name.new-file {
+            color: #4CAF50;
+            font-size: 20px;
+        }
+
+        /* Media Queries for Mobile */
+        @media (max-width: 768px) {
+            .upload-container {
+                padding: 30px;
+                max-width: 90%;
+            }
+
+            .file-upload-btn {
+                padding: 14px 30px;
+                font-size: 16px;
+            }
+
+            .file-name {
+                font-size: 16px;
+            }
+
+            .foter {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="upload-container">
+        
+        {% if messages %}
+        {% for message in messages %}
+    <center><p class="alert alert-success">{{message}}</p></center>
+        
+        {% endfor %}
+        {% endif %}
+        <h2>Upload Your Text File</h2>
+        <form action="{% url 'uploadfile' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label class="file-upload-btn" for="file-input">
+                Choose File
+            </label>
+            <input type="file" id="file-input" class="file-input" name="file" accept=".txt" required onchange="updateFileName()">
+            <div id="file-name" class="file-name">No file selected</div>
+            <button type="submit" class="file-upload-btn">Upload</button>
+        </form>
+
+        <div class="foter">
+            <p style="font-weight: bolder; color: #e43c0a;">Note: Upload .txt files only.</p>
+        </div>
+    </div>
+
+    <script>
+        function updateFileName() {
+            const fileInput = document.getElementById("file-input");
+            const fileName = document.getElementById("file-name");
+            const selectedFile = fileInput.files[0];
+            if (selectedFile) {
+                fileName.textContent = selectedFile.name;
+                fileName.classList.add("new-file");
+            } else {
+                fileName.textContent = "No file selected";
+                fileName.classList.remove("new-file");
+            }
+        }
+    </script>
+
+</body>
+{% endblock %}

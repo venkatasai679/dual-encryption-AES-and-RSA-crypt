@@ -1,0 +1,113 @@
+{% extends "userhome.html" %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Download</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #bdaed4, #f8c855);            /* display: flex; */
+
+            margin: 0;
+            padding: 0;
+         
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .containr {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            margin: 40px auto;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            margin-bottom: 20px;
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 22px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="containr">
+        {% if messages %}
+        {% for message in messages %}
+       <center> <p class="alert alert-success">{{message}}</p></center>
+        {% endfor %}
+    {% endif %}
+        <h2>Download Your File</h2>
+
+        <!-- Form to submit Filename and OTP -->
+        <form action="{% url 'downloadfile' id %}" method="POST" >
+            {% csrf_token %}
+            <!-- Filename Field -->
+            <input type="text" class="input-field" name="filename" placeholder="Enter Filename" value="{{filename}}" readonly required>
+
+            <!-- OTP Field -->
+            <input type="text" class="input-field" name="otp" placeholder="Enter OTP" required>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn">Download File</button>
+        </form>
+
+        <!-- <div class="footer">
+            <p>Need help? <a href="#">Contact Support</a></p>
+        </div> -->
+    </div>
+
+</body>
+
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends "index.html" %}
+{% block nav %}
+    <header>
+        <!-- Header Start -->
+       <div class="header-area header-transparrent">
+           <div class="headder-top header-sticky">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-2">
+                            <!-- Logo -->
+                            <div class="logo">
+                                <!-- <a href="index.html"><img src="/static/assets/img/logo/logo.png" alt=""></a> -->
+                                 <h4 style="font-weight: bolder;">DOUBLE ENCRYPTION</h4>
+                            </div>  
+                        </div>
+                        <div class="col-lg-9 col-md-9">
+                            <div class="menu-wrapper">
+                                <!-- Main-menu -->
+                                <div class="main-menu">
+                                    <nav class="d-none d-lg-block">
+                                        <ul id="navigation">
+                                            <li><a href="{% url 'cloudhome' %}">Home</a></li>
+                                           
+                                            <li><a href="{% url 'viewusers' %}">View Users</a></li>
+                                            <li><a href="{% url 'allfiles' %}">View All files</a></li>
+
+                                            <li><a href="{% url 'requests' %}">View Requests</a></li>
+                                            
+                                            <li><a href="{% url 'logout' %}">Logout</a></li>
+
+                                        </ul>
+                                    </nav>
+                                </div>          
+                         
+                            </div>
+                        </div>
+                        <!-- Mobile Menu -->
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+           </div>
+       </div>
+        <!-- Header End -->
+    </header>
+{% block content %}
+
+    <main>
+
+        <!-- slider Area Start-->
+        <div class="slider-area ">
+            <!-- Mobile Menu -->
+            <div class="slider-active">
+                <div class="single-slider slider-height d-flex align-items-center" data-background="/static/assets/img/i2.png">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-9 col-md-10">
+                                <div class="hero__caption">
+                                    <h2 style="font-weight: bolder; color: white;">EFFICIENT AND SECURE FILE TRANSFER IN CLOUD THROUGH DOUBLE ENCRYPTION USING AES AND RSA ALGORITHM</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Search Box -->
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- slider Area End-->
+        <!-- Our Services Start -->
+                            
+        <!-- Testimonial End -->
+         <!-- Support Company Start-->
+         <div class="support-company-area support-padding fix">
+            <center><h1 style="margin-top: 100px; margin-bottom: 100px;">About</h1></center>
+
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-6 col-lg-6">
+                        <div class="right-caption">
+                            <!-- Section Tittle -->
+                            <div class="section-tittle section-tittle2">
+                                <span style="font-weight: bolder;">EFFICIENT AND SECURE FILE TRANSFER IN CLOUD THROUGH<br>  DOUBLE ENCRYPTION USING AES AND RSA ALGORITHM</span>
+                                <!-- <h3 >24k Talented people are getting Jobs</h3> -->
+                            </div>
+                            <div class="support-caption">
+                                <!-- <p class="pera-top">Mollit anim laborum duis au dolor in voluptate velit ess cillum dolore eu lore dsu quality mollit anim laborumuis au dolor in voluptate velit cillum.</p> -->
+                                <p>Efficient and secure file transfer in the cloud through double encryption using AES and RSA algorithms ensures both speed and robust security for sensitive data. AES (Advanced Encryption Standard), a symmetric encryption algorithm, is used for fast data encryption, ensuring high performance during file transfer. RSA (Rivest-Shamir-Adleman), an asymmetric encryption algorithm, is employed for securing the encryption keys. In this approach, the file is first encrypted using AES with a randomly generated key, and then the AES key itself is encrypted using RSA. This double encryption process ensures that even if an attacker intercepts the encrypted file or key, without the private RSA key, they cannot decrypt the AES key or access the original data. By combining AES for efficiency and RSA for secure key exchange, this method provides a highly secure and scalable solution for cloud file transfer, addressing both confidentiality and integrity concerns in cloud storage systems.</p>
+                                <!-- <a href="about.html" class="btn post-btn">Post a job</a> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6">
+                        <div class="support-location-img">
+                            <img src="/static/assets/img/i6.jpg" alt="">
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Support Company End-->
+       
+    </main>
+    {% endblock %}
+    <footer>
+        <!-- Footer Start-->
+               <!--  -->
+               
+        <!-- footer-bottom area -->
+        <div class="footer-bottom-area footer-bg mt-100">
+            <div class="container">
+                <div class="footer-border">
+                     <div class="row d-flex justify-content-between align-items-center">
+                         <div class="col-xl-10 col-lg-10 ">
+                             <div class="footer-copy-right">
+                                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved   <a href="#" ></a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                             </div>
+                         </div>
+                         <div class="col-xl-2 col-lg-2">
+                             <div class="footer-social f-right">
+                                 <p>Designed By:</p>
+                             </div>
+                         </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End-->
+    </footer>
+    {% endblock %}

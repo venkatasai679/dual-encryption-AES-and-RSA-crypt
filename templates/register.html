@@ -1,0 +1,173 @@
+{% extends "index.html" %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(to right, #bdaed4, #f8c855);            /* display: flex; */
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .containr {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 0;
+        }
+
+        .registration-container {
+            background-color: rgba(250, 242, 242, 0.7); 
+            padding: 30px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 800px; /* Max width of form container */
+            color: #fff;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .registration-container img {
+            width: 100%; /* Make the image responsive */
+            max-width: 700px; /* Ensure the image doesn't get too large */
+            margin-bottom: 20px;
+            height: 350px; 
+            border-radius: 15px;/* Keep aspect ratio */
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #080703; /* Gold color for title */
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border: 2px solid #f8c855; /* Highlight input on focus */
+        }
+
+        .form-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #f8c855;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-btn:hover {
+            background-color: #e5c0e9; /* Dark red on hover */
+        }
+
+        .foter {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .foter a {
+            color: #1a1711;
+            text-decoration: none;
+        }
+
+        .foter a:hover {
+            text-decoration: underline;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .registration-container {
+                padding: 20px;
+                max-width: 90%;
+            }
+
+            .form-input {
+                padding: 12px;
+                margin: 8px 0;
+            }
+
+            .form-btn {
+                padding: 14px;
+                font-size: 18px;
+            }
+
+            h2 {
+                font-size: 22px;
+                margin-bottom: 15px;
+            }
+
+            .registration-container img {
+                width: 80%; /* Scale image for smaller screens */
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+
+            .form-btn {
+                padding: 15px;
+                font-size: 18px;
+            }
+
+            .foter {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="containr">
+        <div class="registration-container">
+            <!-- Image inside the form container -->
+            <img src="/static/assets/img/i4.jpg" alt="Logo"> <!-- Replace with your image URL -->
+
+            {% if messages %}
+            {% for message in messages %}
+        <center><p class="alert alert-success">{{message}}</p></center>
+            
+            {% endfor %}
+            {% endif %}
+            <h2>Register</h2>
+            <form action="{% url 'register' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input class="form-input" type="text" name="username" placeholder="Full Name" required>
+                <input class="form-input" type="email" name="email" placeholder="Email Address" required>
+                <input class="form-input" type="password" name="password" placeholder="Password" required>
+                <input class="form-input" type="password" name="confirm_password" placeholder="Confirm Password" required>
+                <button class="form-btn" type="submit">Register</button>
+            </form>
+            <div class="foter">
+                <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+{% endblock %}
